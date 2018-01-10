@@ -1,0 +1,27 @@
+[
+  {
+    "color": "ORANGE",
+    "colorCode": "#FF5500",
+    "rgbValues" : "255,85,0"
+  },
+  {
+    "color": "RED",
+    "colorCode": "#FF0000",
+    "rgbValues" : "255,0,0"
+  },
+  {
+    "color": "SALMON",
+    "colorCode": "#FA8072",
+    "rgbValues" : "250,128,114"
+  },
+  {
+    "color": "DARKSALMON",
+    "colorCode": "#E9967A",
+    "rgbValues" : "233,150,122"
+  },
+  {
+    "color": "BLUE",
+    "colorCode": "#0000FF",
+    "rgbValues" : "0,0,255"
+  }
+]

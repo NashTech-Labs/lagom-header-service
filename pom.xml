@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example.service</groupId>
+    <artifactId>lagom-header-service</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>lagom-header-service-api</module>
+        <module>lagom-header-service-impl</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.lightbend.lagom</groupId>
+                <artifactId>lagom-maven-dependencies</artifactId>
+                <version>1.3.6</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+            <plugin>
+                <groupId>com.lightbend.lagom</groupId>
+                <artifactId>lagom-maven-plugin</artifactId>
+                <version>1.3.6</version>
+                <configuration>
+                    <cassandraEnabled>false</cassandraEnabled>
+                    <kafkaEnabled>false</kafkaEnabled>
+                    <cassandraMaxBootWaitingSeconds>0</cassandraMaxBootWaitingSeconds>
+                    <cassandraCleanOnStart>false</cassandraCleanOnStart>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <!--checkstyle plugin starts here-->
+            <!--Runs with "mvn verify"-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <configuration>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>false</failsOnError>
+                    <linkXRef>false</linkXRef>
+                    <failOnViolation>false</failOnViolation>
+                    <includeTestSourceDirectory>false</includeTestSourceDirectory>
+                    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+                    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+                    <outputFile>${basedir}/target/checkstyle/checkstyle-output.xml</outputFile>
+                    <cacheFile>${basedir}/target/checkstyle/checkstyle-cachefile</cacheFile>
+                    <configLocation>${main.basedir}/custom_checkstyle.xml</configLocation>
+                    <propertyExpansion>suppressions.file=${main.basedir}/checkstyle_suppressions.xml</propertyExpansion>
+                    <suppressionsLocation>${main.basedir}/checkstyle_suppressions.xml</suppressionsLocation>
+                    <excludes>gatling-test,integration-test</excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--checkstyle plugin ends here-->
+        </plugins>
+    </build>
+
+    <properties>
+        <main.basedir>${session.executionRootDirectory}</main.basedir>
+        <maven.checkstyle.plugin.version>2.17</maven.checkstyle.plugin.version>
+    </properties>
+
+</project>
